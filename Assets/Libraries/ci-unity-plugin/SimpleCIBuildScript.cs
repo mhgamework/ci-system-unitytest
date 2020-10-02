@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.IO;
 using UnityEditor;
@@ -75,3 +76,4 @@ namespace be.mhgamework.ci.UnityPlugin
         }
     }
 }
+#endif

@@ -14,6 +14,7 @@ namespace be.mhgamework.ci.UnityPlugin
         private double nextFetch = 0;
 
         private BranchBuildStatus lastStatus;
+        [SerializeField] private Vector2 scrollpos; 
 
         [MenuItem("CI/Open window")]
         public static void Open()
@@ -86,6 +87,7 @@ namespace be.mhgamework.ci.UnityPlugin
             if (lastStatus == null) lastStatus = new BranchBuildStatus("Unknown");
             Constants.Init();
             EditorGUILayout.LabelField("Master status: ", lastStatus.Status, EditorStyles.boldLabel);
+            scrollpos = EditorGUILayout.BeginScrollView(scrollpos);
             EditorGUILayout.BeginVertical();
             if (lastStatus.Output != null)
                 foreach (var e in lastStatus.Output.LogEntries)
@@ -94,6 +96,7 @@ namespace be.mhgamework.ci.UnityPlugin
                 }
 
             EditorGUILayout.EndVertical();
+            EditorGUILayout.EndScrollView();
         }
 
         private void drawLine(string condition, string stacktrace)

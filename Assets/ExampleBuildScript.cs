@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿#if UNITY_EDITOR
+using System.Linq;
 using be.mhgamework.ci.UnityPlugin;
-#if UNITY_EDITOR
 using System;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
