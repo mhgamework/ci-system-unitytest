@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using be.mhgamework.ci.UnityPlugin;
 using UnityEditor;
 
@@ -12,3 +13,4 @@ namespace DefaultNamespace
         }
     }
 }
+#endif
