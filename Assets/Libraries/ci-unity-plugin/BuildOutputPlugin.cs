@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using be.mhgamework.ci.DirectorClient;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace DefaultNamespace._Prototypes.CIBuildHelpers
+namespace be.mhgamework.ci.UnityPlugin
 {
     /// <summary>
     /// @unfinished: might be better to use unitys BuildResult class instead of doing something manually.
@@ -12,30 +13,6 @@ namespace DefaultNamespace._Prototypes.CIBuildHelpers
     /// </summary>
     public class BuildOutputPlugin
     {
-        public class BuildOutput
-        {
-            public bool IsSuccess { get; set; }
-            public List<Entry> LogEntries { get; set; } = new List<Entry>();
-
-            public class Entry
-            {
-                public string LogType { get; set; }
-                public string Condition { get; set; }
-                public string Stacktrace { get; set; }
-
-                public Entry()
-                {
-                }
-
-                public Entry(string condition, string stacktrace, string logType)
-                {
-                    LogType = logType;
-                    Condition = condition;
-                    Stacktrace = stacktrace;
-                }
-            }
-        }
-
         public static BuildOutput CaptureBuildOutput(Func<bool> build)
         {
             var result = new BuildOutput();

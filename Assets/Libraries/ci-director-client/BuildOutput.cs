@@ -1,24 +1,7 @@
 using System.Collections.Generic;
 
-namespace ApiCopies
+namespace be.mhgamework.ci.DirectorClient
 {
-    public class BranchBuildStatus
-    {
-        public string Status { get; set; }
-        public BuildOutput Output { get; set; }
-
-        public BranchBuildStatus()
-        {
-        }
-
-        public BranchBuildStatus(string status)
-        {
-            Status = status;
-        }
-    }
-    /// <summary>
-    /// @unfinished: this is a plugin class and public api, need better place to put this. Defined by the unity plugin that generates this report
-    /// </summary>
     public class BuildOutput
     {
         public bool IsSuccess { get; set; }

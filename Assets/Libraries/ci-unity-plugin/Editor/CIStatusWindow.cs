@@ -1,12 +1,12 @@
 using System;
 using System.Text;
-using ApiCopies;
+using be.mhgamework.ci.DirectorClient;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace DefaultNamespace._Prototypes.CIBuildHelpers
+namespace be.mhgamework.ci.UnityPlugin
 {
     public class CIStatusWindow : EditorWindow
     {
@@ -39,14 +39,16 @@ namespace DefaultNamespace._Prototypes.CIBuildHelpers
             {
                 //TODO: this can cause cascading fetches
                 nextFetch = EditorApplication.timeSinceStartup + FetchInterval;
-                doGetRequest<BranchBuildStatus>("http://localhost:14001/api/branches/master/buildstatus", result =>
-                {
-                    if (result != null)
+                doGetRequest<BranchBuildStatus>(
+                    CiUnityPluginConfig.ServerAddress + "api/branches/master/buildstatus",
+                    result =>
                     {
-                        lastStatus = result;
-                        Repaint();
-                    }
-                });
+                        if (result != null)
+                        {
+                            lastStatus = result;
+                            Repaint();
+                        }
+                    });
             }
         }
 
@@ -120,37 +122,6 @@ namespace DefaultNamespace._Prototypes.CIBuildHelpers
                                                 GUILayout.ExpandWidth(true),
                                                 GUILayout.ExpandHeight(false), GUILayout.MinHeight(num + 10f));
             }
-
-            // GUIStyle styleForErrorMode1 = Constants.IconWarningSmallStyle;//
-            //     //GetStyleForErrorMode(mask, true, Constants.LogStyleLineCount == 1);
-            // Rect position1 = listViewElement.position;
-            // position1.x += (float) num2;
-            // position1.y += 2f;
-            // styleForErrorMode1.Draw(position1, false, false, this.m_ListView.row == row, false);
-            // content.text = logString;
-            // GUIStyle styleForErrorMode2 =
-            //     GetStyleForErrorMode(mask, false, Constants.LogStyleLineCount == 1);
-            // Rect position2 = listViewElement.position;
-            // position2.x += (float) num2;
-            // if (string.IsNullOrEmpty(this.m_SearchText))
-            // {
-            //     styleForErrorMode2.Draw(position2, content, controlId, this.m_ListView.row == row);
-            // }
-            // else
-            // {
-            //     int firstSelectedCharacter = logString.IndexOf(this.m_SearchText, StringComparison.OrdinalIgnoreCase);
-            //     if (firstSelectedCharacter == -1)
-            //     {
-            //         styleForErrorMode2.Draw(position2, content, controlId, this.m_ListView.row == row);
-            //     }
-            //     else
-            //     {
-            //         int lastSelectedCharacter = firstSelectedCharacter + this.m_SearchText.Length;
-            //         Color selectionColor = GUI.skin.settings.selectionColor;
-            //         styleForErrorMode2.DrawWithTextSelection(position2, content, false, true, firstSelectedCharacter,
-            //                                                  lastSelectedCharacter, false, selectionColor);
-            //     }
-            // }
         }
 
         // internal static GUIStyle GetStyleForErrorMode(int mode, bool isIcon, bool isSmall)
