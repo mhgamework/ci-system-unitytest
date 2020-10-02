@@ -14,6 +14,8 @@ public class BuildScript
     /// <summary>
     /// Performs the command line build by using the passed command line arguments.
     /// </summary>
+    [MenuItem("CISample/TestBuild")]
+
     public static void Build()
     {
         SimpleCIBuildScript.Build(RunUnityBuild,"BuildAuto/Starship Troopers.exe");

@@ -35,6 +35,7 @@ namespace be.mhgamework.ci.UnityPlugin
             finally
             {
                 Application.logMessageReceived -= logCallback;
+                Debug.Log("[[Writing TempBuildOutput.json]]");
                 File.WriteAllText("TempBuildOutput.json", JsonConvert.SerializeObject(result));
             }
             return result;
