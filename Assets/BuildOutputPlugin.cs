@@ -6,9 +6,6 @@ using UnityEngine;
 
 namespace DefaultNamespace._Prototypes.CIBuildHelpers
 {
-#if !UNITY_EDITOR
-        adsf
-#endif
     /// <summary>
     /// @unfinished: might be better to use unitys BuildResult class instead of doing something manually.
     /// However, this does not handle any custom steps done in the build    
