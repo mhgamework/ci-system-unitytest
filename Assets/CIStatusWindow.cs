@@ -82,7 +82,7 @@ namespace DefaultNamespace._Prototypes.CIBuildHelpers
         private void OnGUI()
         {
             if (lastStatus == null) lastStatus = new BranchBuildStatus("Unknown");
-            ConsoleWindow2.Constants.Init();
+            Constants.Init();
             EditorGUILayout.LabelField("Master status: ", lastStatus.Status, EditorStyles.boldLabel);
             EditorGUILayout.BeginVertical();
             if (lastStatus.Output != null)
@@ -98,14 +98,14 @@ namespace DefaultNamespace._Prototypes.CIBuildHelpers
         {
             int mask = 0;
             string logString = (string) null;
-            int num2 = ConsoleWindow2.Constants.LogStyleLineCount == 1 ? 4 : 8;
+            int num2 = Constants.LogStyleLineCount == 1 ? 4 : 8;
             int row = 1;
             GUILayout.BeginVertical((row % 2 == 0
-                                        ? ConsoleWindow2.Constants.OddBackground
-                                        : ConsoleWindow2.Constants.EvenBackground));
-            GUILayout.BeginHorizontal(ConsoleWindow2.Constants.IconErrorStyle);
+                                        ? Constants.OddBackground
+                                        : Constants.EvenBackground));
+            GUILayout.BeginHorizontal(Constants.IconErrorStyle);
             GUILayout.BeginVertical();
-            GUILayout.Label(condition, ConsoleWindow2.Constants.ErrorStyle);
+            GUILayout.Label(condition, Constants.ErrorStyle);
 
             GUILayout.EndVertical();
 
@@ -114,20 +114,22 @@ namespace DefaultNamespace._Prototypes.CIBuildHelpers
             if (!string.IsNullOrWhiteSpace(stacktrace))
             {
                 var trace = StacktraceWithHyperlinks(stacktrace);
-                float num = ConsoleWindow2.Constants.MessageStyle.CalcHeight(new GUIContent(trace), this.position.width);
-                EditorGUILayout.SelectableLabel(trace, ConsoleWindow2.Constants.MessageStyle, GUILayout.ExpandWidth(true),
+                float num = Constants.MessageStyle.CalcHeight(
+                    new GUIContent(trace), this.position.width);
+                EditorGUILayout.SelectableLabel(trace, Constants.MessageStyle,
+                                                GUILayout.ExpandWidth(true),
                                                 GUILayout.ExpandHeight(false), GUILayout.MinHeight(num + 10f));
             }
-     
-            // GUIStyle styleForErrorMode1 = ConsoleWindow2.Constants.IconWarningSmallStyle;//
-            //     //ConsoleWindow2.GetStyleForErrorMode(mask, true, ConsoleWindow2.Constants.LogStyleLineCount == 1);
+
+            // GUIStyle styleForErrorMode1 = Constants.IconWarningSmallStyle;//
+            //     //GetStyleForErrorMode(mask, true, Constants.LogStyleLineCount == 1);
             // Rect position1 = listViewElement.position;
             // position1.x += (float) num2;
             // position1.y += 2f;
             // styleForErrorMode1.Draw(position1, false, false, this.m_ListView.row == row, false);
             // content.text = logString;
             // GUIStyle styleForErrorMode2 =
-            //     ConsoleWindow2.GetStyleForErrorMode(mask, false, ConsoleWindow2.Constants.LogStyleLineCount == 1);
+            //     GetStyleForErrorMode(mask, false, Constants.LogStyleLineCount == 1);
             // Rect position2 = listViewElement.position;
             // position2.x += (float) num2;
             // if (string.IsNullOrEmpty(this.m_SearchText))
@@ -154,33 +156,33 @@ namespace DefaultNamespace._Prototypes.CIBuildHelpers
         // internal static GUIStyle GetStyleForErrorMode(int mode, bool isIcon, bool isSmall)
         // {
         //     return
-        //         ConsoleWindow2.HasMode(
+        //         HasMode(
         //             mode,
-        //             ConsoleWindow2.Mode.Error | ConsoleWindow2.Mode.Assert | ConsoleWindow2.Mode.Fatal |
-        //             ConsoleWindow2.Mode.AssetImportError | ConsoleWindow2.Mode.ScriptingError |
-        //             ConsoleWindow2.Mode.ScriptCompileError | ConsoleWindow2.Mode.ScriptingException |
-        //             ConsoleWindow2.Mode.GraphCompileError | ConsoleWindow2.Mode.ScriptingAssertion)
+        //             Mode.Error | Mode.Assert | Mode.Fatal |
+        //             Mode.AssetImportError | Mode.ScriptingError |
+        //             Mode.ScriptCompileError | Mode.ScriptingException |
+        //             Mode.GraphCompileError | Mode.ScriptingAssertion)
         //             ? (isIcon
         //                 ? (isSmall
-        //                     ? ConsoleWindow2.Constants.IconErrorSmallStyle
-        //                     : ConsoleWindow2.Constants.IconErrorStyle)
-        //                 : (isSmall ? ConsoleWindow2.Constants.ErrorSmallStyle : ConsoleWindow2.Constants.ErrorStyle))
-        //             : (ConsoleWindow2.HasMode(
+        //                     ? Constants.IconErrorSmallStyle
+        //                     : Constants.IconErrorStyle)
+        //                 : (isSmall ? Constants.ErrorSmallStyle : Constants.ErrorStyle))
+        //             : (HasMode(
         //                 mode,
-        //                 ConsoleWindow2.Mode.AssetImportWarning | ConsoleWindow2.Mode.ScriptingWarning |
-        //                 ConsoleWindow2.Mode.ScriptCompileWarning)
+        //                 Mode.AssetImportWarning | Mode.ScriptingWarning |
+        //                 Mode.ScriptCompileWarning)
         //                 ? (isIcon
         //                     ? (isSmall
-        //                         ? ConsoleWindow2.Constants.IconWarningSmallStyle
-        //                         : ConsoleWindow2.Constants.IconWarningStyle)
+        //                         ? Constants.IconWarningSmallStyle
+        //                         : Constants.IconWarningStyle)
         //                     : (isSmall
-        //                         ? ConsoleWindow2.Constants.WarningSmallStyle
-        //                         : ConsoleWindow2.Constants.WarningStyle))
+        //                         ? Constants.WarningSmallStyle
+        //                         : Constants.WarningStyle))
         //                 : (isIcon
         //                     ? (isSmall
-        //                         ? ConsoleWindow2.Constants.IconLogSmallStyle
-        //                         : ConsoleWindow2.Constants.IconLogStyle)
-        //                     : (isSmall ? ConsoleWindow2.Constants.LogSmallStyle : ConsoleWindow2.Constants.LogStyle)));
+        //                         ? Constants.IconLogSmallStyle
+        //                         : Constants.IconLogStyle)
+        //                     : (isSmall ? Constants.LogSmallStyle : Constants.LogStyle)));
         // }
 
         internal static string StacktraceWithHyperlinks(string stacktraceText)
@@ -224,6 +226,102 @@ namespace DefaultNamespace._Prototypes.CIBuildHelpers
             if (stringBuilder.Length > 0)
                 stringBuilder.Remove(stringBuilder.Length - 1, 1);
             return stringBuilder.ToString();
+        }
+
+        internal class Constants
+        {
+            public static readonly string ClearLabel = L10n.Tr("Clear");
+            public static readonly string ClearOnPlayLabel = L10n.Tr("Clear on Play");
+            public static readonly string ErrorPauseLabel = L10n.Tr("Error Pause");
+            public static readonly string CollapseLabel = L10n.Tr("Collapse");
+            public static readonly string StopForAssertLabel = L10n.Tr("Stop for Assert");
+            public static readonly string StopForErrorLabel = L10n.Tr("Stop for Error");
+            public static readonly string ClearOnBuildLabel = L10n.Tr("Clear on Build");
+            private static bool ms_Loaded;
+            private static int ms_logStyleLineCount;
+            public static GUIStyle Box;
+            public static GUIStyle MiniButtonLeft;
+            public static GUIStyle MiniButton;
+            public static GUIStyle MiniButtonRight;
+            public static GUIStyle LogStyle;
+            public static GUIStyle WarningStyle;
+            public static GUIStyle ErrorStyle;
+            public static GUIStyle IconLogStyle;
+            public static GUIStyle IconWarningStyle;
+            public static GUIStyle IconErrorStyle;
+            public static GUIStyle EvenBackground;
+            public static GUIStyle OddBackground;
+            public static GUIStyle MessageStyle;
+            public static GUIStyle StatusError;
+            public static GUIStyle StatusWarn;
+            public static GUIStyle StatusLog;
+            public static GUIStyle Toolbar;
+            public static GUIStyle CountBadge;
+            public static GUIStyle LogSmallStyle;
+            public static GUIStyle WarningSmallStyle;
+            public static GUIStyle ErrorSmallStyle;
+            public static GUIStyle IconLogSmallStyle;
+            public static GUIStyle IconWarningSmallStyle;
+            public static GUIStyle IconErrorSmallStyle;
+
+            public static int LogStyleLineCount
+            {
+                get { return Constants.ms_logStyleLineCount; }
+                set
+                {
+                    Constants.ms_logStyleLineCount = value;
+                    if (!Constants.ms_Loaded)
+                        return;
+                    Constants.UpdateLogStyleFixedHeights();
+                }
+            }
+
+            public static void Init()
+            {
+                if (ms_Loaded)
+                    return;
+                Constants.ms_Loaded = true;
+                Constants.Box = (GUIStyle) "CN Box";
+                Constants.MiniButtonLeft = (GUIStyle) "ToolbarButtonLeft";
+                Constants.MiniButton = (GUIStyle) "ToolbarButton";
+                Constants.MiniButtonRight = (GUIStyle) "ToolbarButtonRight";
+                Constants.Toolbar = (GUIStyle) "Toolbar";
+                Constants.LogStyle = (GUIStyle) "CN EntryInfo";
+                Constants.LogSmallStyle = (GUIStyle) "CN EntryInfoSmall";
+                Constants.WarningStyle = (GUIStyle) "CN EntryWarn";
+                Constants.WarningSmallStyle = (GUIStyle) "CN EntryWarnSmall";
+                Constants.ErrorStyle = (GUIStyle) "CN EntryError";
+                Constants.ErrorSmallStyle = (GUIStyle) "CN EntryErrorSmall";
+                Constants.IconLogStyle = (GUIStyle) "CN EntryInfoIcon";
+                Constants.IconLogSmallStyle = (GUIStyle) "CN EntryInfoIconSmall";
+                Constants.IconWarningStyle = (GUIStyle) "CN EntryWarnIcon";
+                Constants.IconWarningSmallStyle = (GUIStyle) "CN EntryWarnIconSmall";
+                Constants.IconErrorStyle = (GUIStyle) "CN EntryErrorIcon";
+                Constants.IconErrorSmallStyle = (GUIStyle) "CN EntryErrorIconSmall";
+                Constants.EvenBackground = (GUIStyle) "CN EntryBackEven";
+                Constants.OddBackground = (GUIStyle) "CN EntryBackodd";
+                Constants.MessageStyle = (GUIStyle) "CN Message";
+                Constants.StatusError = (GUIStyle) "CN StatusError";
+                Constants.StatusWarn = (GUIStyle) "CN StatusWarn";
+                Constants.StatusLog = (GUIStyle) "CN StatusInfo";
+                Constants.CountBadge = (GUIStyle) "CN CountBadge";
+                Constants.LogStyleLineCount = EditorPrefs.GetInt("ConsoleWindowLogLineCount", 2);
+            }
+
+            private static void UpdateLogStyleFixedHeights()
+            {
+                Constants.ErrorStyle.fixedHeight =
+                    (float) Constants.LogStyleLineCount *
+                    Constants.ErrorStyle.lineHeight +
+                    (float) Constants.ErrorStyle.border.top;
+                Constants.WarningStyle.fixedHeight =
+                    (float) Constants.LogStyleLineCount *
+                    Constants.WarningStyle.lineHeight +
+                    (float) Constants.WarningStyle.border.top;
+                Constants.LogStyle.fixedHeight =
+                    (float) Constants.LogStyleLineCount * Constants.LogStyle.lineHeight +
+                    (float) Constants.LogStyle.border.top;
+            }
         }
     }
 }
