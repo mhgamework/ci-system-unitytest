@@ -1,4 +1,4 @@
-﻿﻿using System.Linq;
+﻿using System.Linq;
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
@@ -38,13 +38,15 @@ public static class Builder
             var buildMessage = BuildPipeline.BuildPlayer(options);
             if (buildMessage.summary.result == BuildResult.Succeeded)
             {
-                EditorUtility.DisplayDialog("Build Starship Troopers", "Build was successful", "Ok");
+                if (!Application.isBatchMode)
+                    EditorUtility.DisplayDialog("Build Starship Troopers", "Build was successful", "Ok");
                 Debug.Log("[[[BUILD]]] Build succeeded");
                 return true;
             }
             else
             {
-                EditorUtility.DisplayDialog("Build Starship Troopers", "Build failed with errors", "Ok");
+                if (!Application.isBatchMode)
+                    EditorUtility.DisplayDialog("Build Starship Troopers", "Build failed with errors", "Ok");
                 Debug.Log("[[[BUILD]]] Build failed");
                 return false;
             }
