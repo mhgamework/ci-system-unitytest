@@ -26,7 +26,9 @@ namespace be.mhgamework.ci.UnityPlugin
         {
             //        string[] args = System.Environment.GetCommandLineArgs();
             var publishPath = Path.Combine(Environment.CurrentDirectory, relativeBuildOutputExe);
-            BuildOutputPlugin.CaptureBuildOutput(() => runBuild(build, publishPath));
+            var result = BuildOutputPlugin.CaptureBuildOutput(() => runBuild(build, publishPath));
+            // Set exitcode
+            if (Application.isBatchMode && !result.IsSuccess) EditorApplication.Exit(100);
         }
 
         private static bool runBuild(Func<Options, BuildReport> build, string buildOutputExePath)
@@ -57,7 +59,6 @@ namespace be.mhgamework.ci.UnityPlugin
                     if (!Application.isBatchMode)
                         EditorUtility.DisplayDialog("Build Starship Troopers", "Build failed with errors", "Ok");
                     Debug.Log("[[[BUILD]]] Build failed");
-                    if (Application.isBatchMode) EditorApplication.Exit(100);
                     return false;
                 }
             }
