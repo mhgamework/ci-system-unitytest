@@ -6,5 +6,10 @@ namespace DefaultNamespace
         {
             return "value";
         }
+
+        public string ExampleMergeSuccess()
+        {
+            return "successbranch";
+        }
     }
 }
