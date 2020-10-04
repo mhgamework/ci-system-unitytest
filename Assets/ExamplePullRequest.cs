@@ -4,7 +4,7 @@ namespace DefaultNamespace
     {
         public string Example()
         {
-            return "value";
+            return "master";
         }
     }
 }
