@@ -53,6 +53,11 @@ namespace be.mhgamework.ci.UnityPlugin
             }
         }
 
+        public BranchBuildStatus GetLastStatus()
+        {
+            return lastStatus;
+        }
+        
         private void doGetRequest<T>(string url, Action<T> onResult)
         {
             UnityWebRequest req = UnityWebRequest.Get(url);
