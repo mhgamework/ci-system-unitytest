@@ -41,7 +41,7 @@ namespace be.mhgamework.ci.UnityPlugin
                 //TODO: this can cause cascading fetches
                 nextFetch = EditorApplication.timeSinceStartup + FetchInterval;
                 doGetRequest<BranchBuildStatus>(
-                    CiUnityPluginConfig.ServerAddress + "api/branches/master/buildstatus",
+                    $"{CiUnityPluginConfig.ServerAddress}api/branches/{CiUnityPluginConfig.DefaultBranch}/buildstatus",
                     result =>
                     {
                         if (result != null)
@@ -91,7 +91,7 @@ namespace be.mhgamework.ci.UnityPlugin
         {
             if (lastStatus == null) lastStatus = new BranchBuildStatus("Unknown");
             Constants.Init();
-            EditorGUILayout.LabelField("Master status: ", lastStatus.Status, EditorStyles.boldLabel);
+            EditorGUILayout.LabelField($"{CiUnityPluginConfig.DefaultBranch} status: ", lastStatus.Status, EditorStyles.boldLabel);
             scrollpos = EditorGUILayout.BeginScrollView(scrollpos);
             EditorGUILayout.BeginVertical();
             if (lastStatus.Output != null)
